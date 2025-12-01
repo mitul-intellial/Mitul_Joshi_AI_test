@@ -1,4 +1,3 @@
-
 import requests
 
 def get_weather_data(latitude, longitude):
@@ -20,3 +19,21 @@ def get_weather_data(latitude, longitude):
     except requests.exceptions.RequestException as e:
         print(f"Error fetching weather data: {e}")
         return None
+
+def summarize_weather(data: dict) -> dict:
+    """
+    Extracts a summary of the weather from the raw data.
+
+    Args:
+        data: A dictionary containing the 'current_weather' data from the API.
+
+    Returns:
+        A dictionary with the summarized weather information.
+    """
+    current_weather = data.get("current_weather", {})
+    return {
+        "temperature": current_weather.get("temperature"),
+        "windspeed": current_weather.get("windspeed"),
+        "winddirection": current_weather.get("winddirection"),
+        "time": current_weather.get("time"),
+    }
